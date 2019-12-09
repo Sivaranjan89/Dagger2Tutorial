@@ -23,7 +23,7 @@ public class MainRepo {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                //TODO
             }
         });
 
