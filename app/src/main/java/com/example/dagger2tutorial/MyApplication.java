@@ -5,7 +5,6 @@ import android.app.Application;
 import com.example.dagger2tutorial.dagger.ApplicationComponent;
 import com.example.dagger2tutorial.dagger.ApplicationModule;
 import com.example.dagger2tutorial.dagger.DaggerApplicationComponent;
-import com.example.dagger2tutorial.dagger.NetworkingModule;
 
 public class MyApplication extends Application {
 
@@ -19,11 +18,11 @@ public class MyApplication extends Application {
         /**
          * Once we create our application component and modules, We should build our porject once to get the DaggerApplicationComponent class.
          * Invoke our application component here using
-         * DaggerApplicationComponent.builder().applicationModule(module).build()
+         * DaggerApplicationComponent.builder().build()
+         * .applicationModule(new ApplicationModule(this)) is called because application module needs context for injection
          */
         applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule())
-                .networkingModule(new NetworkingModule())
+                .applicationModule(new ApplicationModule(this))
                 .build();
     }
 

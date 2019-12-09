@@ -1,5 +1,7 @@
 package com.example.dagger2tutorial.dagger;
 
+import android.app.Application;
+
 import com.example.dagger2tutorial.MainRepo;
 import com.example.dagger2tutorial.MainUsecase;
 import com.example.dagger2tutorial.MainViewModel;
@@ -16,9 +18,15 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
+    private final Application application;
+
+    public ApplicationModule (Application application) {
+        this.application = application;
+    }
+
 
     /**
-     * @Provides will declare this as a injection
+     * Annotation @Provides will declare this as a injection
      * @param mainUsecase will inject MainUseCase to MainViewModel Class
      */
     @Provides
@@ -32,7 +40,15 @@ public class ApplicationModule {
      */
     @Provides
     MainUsecase bindMainUseCase(MainRepo mainRepo) {
-        return new MainUsecase(mainRepo);
+        return new MainUsecase(mainRepo, application);
+    }
+
+    /**
+     * providing MainRepo for Injection
+     */
+    @Provides
+    MainRepo bindMainRepo() {
+        return new MainRepo();
     }
 
 }
